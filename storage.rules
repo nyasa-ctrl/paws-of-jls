@@ -1,12 +1,25 @@
 rules_version = '2';
 
-// Craft rules based on data in your Firestore database
-// allow write: if firestore.get(
-//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
 service firebase.storage {
   match /b/{bucket}/o {
+    // Allow authenticated users in whitelist to upload/read their own files
+    match /avatars/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId
+        && firestore.exists(/databases/(default)/documents/whitelist/$(request.auth.token.email));
+    }
+    
+    // Allow authenticated users in whitelist to upload/read pet photos
+    match /pets/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId
+        && firestore.exists(/databases/(default)/documents/whitelist/$(request.auth.token.email));
+    }
+    
+    // Allow all authenticated whitelist users to read all photos (for viewing others' pets)
     match /{allPaths=**} {
-      allow read, write: if false;
+      allow read: if request.auth != null
+        && firestore.exists(/databases/(default)/documents/whitelist/$(request.auth.token.email));
     }
   }
 }

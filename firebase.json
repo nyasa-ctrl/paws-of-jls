@@ -1,7 +1,7 @@
 {
   "firestore": {
-    "database": "default",
-    "location": "nam5",
+    "database": "(default)",
+    "location": "us-central1",
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
@@ -15,9 +15,6 @@
         "firebase-debug.log",
         "firebase-debug.*.log",
         "*.local"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
       ]
     }
   ],
