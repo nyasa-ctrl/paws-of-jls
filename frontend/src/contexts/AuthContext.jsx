@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
         
         // Fallback to REST API
         const idToken = await user.getIdToken();
-        const projectId = 'paws-of-jls';
+        const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
         
         // Properly encode the email for URL
         const encodedEmail = encodeURIComponent(userEmail);

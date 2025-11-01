@@ -31,7 +31,7 @@ const Profile = () => {
       
       // Get all users from whitelist collection
       const response = await fetch(
-        `https://firestore.googleapis.com/v1/projects/paws-of-jls/databases/(default)/documents/whitelist`,
+        `https://firestore.googleapis.com/v1/projects/${import.meta.env.VITE_FIREBASE_PROJECT_ID}/databases/(default)/documents/whitelist`,
         {
           headers: {
             'Authorization': `Bearer ${idToken}`,
@@ -79,7 +79,7 @@ const Profile = () => {
     try {
       const idToken = await user.getIdToken();
       const response = await fetch(
-        `https://firestore.googleapis.com/v1/projects/paws-of-jls/databases/(default)/documents/whitelist/${encodeURIComponent(user.email)}`,
+        `https://firestore.googleapis.com/v1/projects/${import.meta.env.VITE_FIREBASE_PROJECT_ID}/databases/(default)/documents/whitelist/${encodeURIComponent(user.email)}`,
         {
           headers: {
             'Authorization': `Bearer ${idToken}`,
